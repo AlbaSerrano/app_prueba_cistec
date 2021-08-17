@@ -15,6 +15,7 @@ use App\DataBase\Seeds\Admin;
 class DashboardController extends BaseController
 {
 
+    //Pasamos todas las noticias a la vista index
     public function index()
     {
         $new_model = new NewsModel();
@@ -22,6 +23,7 @@ class DashboardController extends BaseController
         return view('index', $data);
     }
 
+    //Muestra las últimas 5 noticias ordenadas por fecha descendente
     public function showLastFiveNews()
     {
         $new_model = new NewsModel();
@@ -29,31 +31,40 @@ class DashboardController extends BaseController
         return view('last_five_news', $data);
     }
 
-    public function loadCategories(){
+    //Pasamos todas las categorías a la vista
+    public function loadCategories()
+    {
         //Obtenemos todas las categorías para pasarlas a la vista
         $category_model = new CategoriesModel();
         $data['categories'] = $category_model->orderBy('id', 'ASC')->findAll();
         return view('categories', $data);
     }
 
-    public function showNewsByCategory(){
+    //Muestra las noticias por categorías
+    public function showNewsByCategory()
+    {
         $category_model = new CategoriesModel();
         $new_category_model = new NewsCategoriesModel();
         $new_model = new NewsModel();
+        //Obtenemos la categoría seleccionada por el usuario
         $id_category = $_POST['selectCategory'];
         $data['category'] = $category_model->where('id', $id_category)->First();
+        //Obtenemos todas las noticias que sean de esa categoría
         $news = $new_category_model->select('noticias_id')->where('noticias_categorias_id', $id_category)->findAll();
-        if ($news){
+        if ($news) {
             $i = 0;
-           foreach ($news as $new){
-               $data['news'][$i] = $new_model->select('Titular')->where('id', $new['noticias_id'])->First();
-               $i++;
-           } 
+            //Por cada noticia de la categoría la metemos en un array
+            foreach ($news as $new) {
+                $data['news'][$i] = $new_model->select('Titular')->where('id', $new['noticias_id'])->First();
+                $i++;
+            }
         }
         return view('list_news_by_category', $data);
     }
 
-    public function showDetailNew($slug = null){
+    //Recibimos la ruta de la noticia a mostrar el detalle y enviamos los detalles a la vista
+    public function showDetailNew($slug = null)
+    {
         $new_model = new NewsModel();
         $data['new'] = $new_model->where('Slug', $slug)->First();
         return view('new_detail', $data);

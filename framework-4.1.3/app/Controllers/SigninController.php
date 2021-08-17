@@ -22,6 +22,7 @@ class SigninController extends BaseController
         return view('login', ["message" => $message]);
     }
     
+    //Iniciamos sesión
     public function signin()
     {
         //Obtenemos el usuario y la contraseña introducidos por el usuario
@@ -55,12 +56,14 @@ class SigninController extends BaseController
         }
     }
 
+    //Muestra todas las noticias en la vista del admin
     public function admin(){
         $new_model = new NewsModel();
         $data['news'] = $new_model->orderBy('fecha', 'DESC')->findAll();
         return view('admin/admin_view', $data);
     }
 
+    //Función para borrar la sesión de usuario
     public function signout(){
         $session = session();
         $session->destroy();

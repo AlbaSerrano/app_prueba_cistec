@@ -11,6 +11,7 @@ use App\Models\CategoriesModel;
 class AdminNewsController extends BaseController
 {
 
+    //Pasamos todas las noticias existentes a la vista
     public function index()
     {
         $new_model = new NewsModel();
@@ -18,32 +19,6 @@ class AdminNewsController extends BaseController
         return view('admin/news/news_view', $data);
     }
 
-    //METODO PUBLIC!!!!!!!!!!!!!!!
-    public function showNewsByCategory(){
-        $new_category_model = new NewsCategoriesModel();
-        $category_model = new CategoriesModel();
-        $new_model = new NewsModel();
-
-        $data = $category_model->findAll();
-        $i = 0;
-        if ($data) {
-            foreach ($data as $category) {
-                
-                $query = $new_category_model->select('noticias_id')->where('noticias_categorias_id', $category['id'])->findAll();
-                if ($query) {
-                    $nombre = $category['Nombre'];
-                    for($j = 0; $j < count($query); $j++){
-                        $id_new = $query[$j]['noticias_id'];
-                        $list_new_category[$j] = array($new_model->select('Titular')->where('id', $id_new)->First() , $nombre); 
-                                            
-                    }
-                    $new['new'][$i] = $list_new_category;                   
-                    $i++;
-                }              
-            }
-        }
-        return view('listado_noticias_categoria', $new);
-    }
 
     public function showAddNew()
     {
@@ -53,6 +28,7 @@ class AdminNewsController extends BaseController
         return view('admin/news/add_new', $data);
     }
 
+    //Añadimos la nueva noticia con los datos que recibimos a través del método post del formulario 
     public function addNew()
     {
         $new_model = new NewsModel();
@@ -83,6 +59,7 @@ class AdminNewsController extends BaseController
         return $this->response->redirect(base_url('/admin/lista_noticias'));
     }
 
+    //Obtenemos la noticia a través de un titular
     public function getNew($headline = null)
     {
         $new_model = new NewsModel();
@@ -91,6 +68,7 @@ class AdminNewsController extends BaseController
         return $id_new;
     }
 
+    //Eliminamos la noticia con el id recibido a través del método post
     public function deleteNew($id = null)
     {
         $new_model = new NewsModel();
@@ -100,6 +78,7 @@ class AdminNewsController extends BaseController
         return $this->response->redirect(base_url('/admin/lista_noticias'));
     }
 
+    //Obtenemos de la noticia con el id recibido a través del método post
     public function editNew($id = null)
     {
         $new_model = new NewsModel();
@@ -110,6 +89,7 @@ class AdminNewsController extends BaseController
         return view('admin/news/edit_new', $data);
     }
 
+    //Actualizamos la noticia con los nuevos datos que recibimos a través del método post del formulario 
     public function update()
     {
         $new_model = new NewsModel();
@@ -140,18 +120,21 @@ class AdminNewsController extends BaseController
         return $this->response->redirect(base_url('/admin/lista_noticias'));
     }
 
+    //Insertamos el id de la noticia y de la categoría
     public function addNewAndCategory($data = null)
     {
         $new_category_model = new NewsCategoriesModel();
         $new_category_model->insert($data);
     }
 
+    //Eliminamos el id de la noticia y de la categoría
     public function deleteNewAndCategory($id = null)
     {
         $new_category_model = new NewsCategoriesModel();
         $new_category_model->where('noticias_id', $id)->delete($id);
     }
 
+    //Elimina los caracteres especiales 
     public function removeSpecialChar($str)
     {
         $res = str_replace(array(',', "'", ";", "´"), '', $str);
