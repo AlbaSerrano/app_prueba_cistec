@@ -11,8 +11,7 @@
 <!-- /TÍTULO -->
 
 <!--NAVBAR-->
-<!--el navbar está expandido en pantallas >= md-->
-<!--Tendrá bordes arriba y abajo-->
+
 <nav class="navbar navbar-expand-md navbar-light bg-light border-top border-bottom">
     <div class="container-fluid">
         <!--Botón que aparece cuando se colapsa el menú en pantallas < md-->
