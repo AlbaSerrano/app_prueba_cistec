@@ -39,29 +39,34 @@
         <!-- /HEADER -->
 
         <!-- CONTENT -->
-        <section class="my-5">
+        <section class="row text-center my-5">
             <h2 class="display-6 fw-light">Escoge una categoría</h2>
-            <form method="post" id="select_category" name="select_category" action="<?php echo base_url('/vernoticias') ?>">
+            <div class="col-6 align-self-center mt-5">
+                <img src="<?= base_url() ?>/assets/images/news-category.jpg" class="img-thumbnail">
+            </div>
+            <div class="col-6 align-self-center mt-5">
+                <form method="post" id="select_category" name="select_category" action="<?php echo base_url('/vernoticias') ?>">
 
-                <div class="form-group row justify-content-center my-4">
-                    <span>Seleccione una categoría</span>
-                    <div class="col-lg-6 col-md-8">
-                        <select class="custom-select custom-select-lg mb-3 form-control" name="selectCategory">
+                    <div class="form-group row justify-content-center my-4">
+                        <span class="my-3">Seleccione una categoría de la lista</span>
+                        <div class="col-lg-6 col-md-8">
+                            <select class="custom-select custom-select-lg mb-3 form-control" name="selectCategory">
 
-                            <?php if ($categories) : ?>
-                                <?php foreach ($categories as $category) : ?>
-                                    <option value="<?php echo $category['id'] ?>"><?php echo $category['Nombre'] ?></option>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                                <?php if ($categories) : ?>
+                                    <?php foreach ($categories as $category) : ?>
+                                        <option value="<?php echo $category['id'] ?>"><?php echo $category['Nombre'] ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
 
-                        </select>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group mt-3">
-                    <button type="submit" class="btn btn-primary btn-block">Buscar</button>
-                </div>
-            </form>
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary btn-block">Buscar</button>
+                    </div>
+                </form>
+            </div>
         </section>
 
         <!-- CONTENT -->

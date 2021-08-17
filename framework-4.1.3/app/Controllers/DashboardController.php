@@ -17,7 +17,9 @@ class DashboardController extends BaseController
 
     public function index()
     {
-        return view('index');
+        $new_model = new NewsModel();
+        $data['news'] = $new_model->orderBy('fecha', 'DESC')->findAll();
+        return view('index', $data);
     }
 
     public function showLastFiveNews()
@@ -48,7 +50,13 @@ class DashboardController extends BaseController
                $i++;
            } 
         }
-        return view('listado_noticias_categoria', $data);
+        return view('list_news_by_category', $data);
+    }
+
+    public function showDetailNew($slug = null){
+        $new_model = new NewsModel();
+        $data['new'] = $new_model->where('Slug', $slug)->First();
+        return view('new_detail', $data);
     }
 
     /*Obtenemos el tiempo real de Pamplona a través de la API open weather map y pasamos los datos a la vista 'tiempo'*/

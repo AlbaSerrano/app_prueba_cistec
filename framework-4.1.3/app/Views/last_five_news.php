@@ -19,6 +19,10 @@
         .foot {
             padding-top: 10%;
         }
+
+        .bg-color {
+            background-color: #B3AC84;
+        }
     </style>
 </head>
 
@@ -29,36 +33,22 @@
         <!-- /HEADER -->
 
         <!-- CONTENT -->
-        <section class="my-5">
+        <section class="my-5 justify-content-center text-center">
             <h2 class="display-6 fw-light">Listado de las últimas 5 noticias</h2>
 
-            <div class="mt-3">
-                <table class="table table-bordered" id="users-list">
-                    <thead>
-                        <tr>
-                            <th>Id noticia</th>
-                            <th>Titular</th>
-                            <th>Cuerpo</th>
-                            <th>Fecha</th>
-                            <th>Slug</th>
-                            <th>Id usuario</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if ($news) : ?>
-                            <?php foreach ($news as $new) : ?>
-                                <tr>
-                                    <td><?php echo $new['id']; ?></td>
-                                    <td><?php echo $new['Titular']; ?></td>
-                                    <td><?php echo $new['Cuerpo']; ?></td>
-                                    <td><?php echo $new['Fecha']; ?></td>
-                                    <td><?php echo $new['Slug']; ?></td>
-                                    <td><?php echo $new['usuarios_id']; ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+            <div class="row justify-content-center align-items-center text-center fw-light mt-3">
+
+                <?php if ($news) : ?>
+                    <?php foreach ($news as $new) : ?>
+                        <div class="card text-black bg-color mb-3 mx-3" style="max-width: 18rem;">
+                            <div class="card-header"><?php echo $new['Fecha']; ?></div>
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $new['Titular']; ?></h5>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
             </div>
         </section>
 

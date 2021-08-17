@@ -71,8 +71,8 @@ $routes->post('/admin/actualizar_noticia', 'AdminNewsController::update');
 //PUBLIC
 $routes->get('/noticias/ultimas_noticias', 'DashboardController::showLastFiveNews');
 $routes->get('/noticias/categorias', 'DashboardController::loadCategories');
-$routes->get('/noticias/categorias/(:any)', 'DashboardController::showNewsByCategory');
 $routes->post('/vernoticias', 'DashboardController::showNewsByCategory');
+$routes->get('/noticia/(:any)', 'DashboardController::showDetailNew/$1');
 
  
 

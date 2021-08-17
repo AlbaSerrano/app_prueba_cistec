@@ -7,6 +7,9 @@ use CodeIgniter\Controller;
 //Agregamos nuestro modelo de usuarios
 use App\Models\UsersModel;
 
+//Agregamos nuestro modelo de noticias
+use App\Models\NewsModel;
+
 
 
 class SigninController extends BaseController
@@ -53,7 +56,9 @@ class SigninController extends BaseController
     }
 
     public function admin(){
-        return view('admin/admin_view');
+        $new_model = new NewsModel();
+        $data['news'] = $new_model->orderBy('fecha', 'DESC')->findAll();
+        return view('admin/admin_view', $data);
     }
 
     public function signout(){
